@@ -1,61 +1,75 @@
-# skin-cancer-detection-ai
-Skin cancer classification using EfficientNet-B3 trained on HAM10000 dataset. Uses transfer learning for faster convergence and high accuracy across 7 lesion types. Includes training pipeline, results, Grad-CAM visualization for explainability, and confusion/ROC evaluation.
+# React + TypeScript + Vite
 
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-EfficientNet-B3 based classification model
+Currently, two official plugins are available:
 
-Transfer Learning for high accuracy & fast training
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Grad-CAM support for visual explainability
+## React Compiler
 
-Confusion Matrix, Accuracy & ROC evaluation
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-Full-stack Web Interface
+Note: This will impact Vite dev & build performances.
 
-Live prediction from uploaded images
+## Expanding the ESLint configuration
 
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-```
-skin-lesion-efficientnetb3/
-│── backend/
-│   ├── app.py                 # FastAPI backend server
-│   ├── uploads/               # Uploaded lesion images
-│   ├── requirements.txt       # Backend python dependencies
-│
-│── frontend/                  # React frontend (Vite + Tailwind)
-│   ├── src/                   # UI + Components
-│   ├── public/
-│   ├── package.json
-│
-│── logs/                      # Model logs + metrics
-│── data/                      # Dataset storage (optional)
-│── scripts/                   # Helper python scripts
-│── configs/                   # Model configs (e.g., config.yaml)
-│── notebooks/                 # Experiments & EDA notebooks
-│── uploads/                   # Prediction output storage
-│── requirements.txt           # Root dependency file (optional)
-│── LICENSE
-│── README.md 
-```
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-```
-git clone <repo-url>
-cd skin-lesion-efficientnetb3
-```
-
-
-```
-cd backend
-pip install -r requirements.txt
-uvicorn backend.app:app --reload
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-cd frontend
-npm install
-npm run dev
-```
-
-
-
